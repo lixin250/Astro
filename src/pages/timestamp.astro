@@ -3,128 +3,76 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="时间戳转换">
-  <h1 style="margin-bottom: 2rem;">🕐 时间戳转换工具</h1>
+<h1 style="margin-bottom: 2rem;">时间戳转换工具</h1>
+
+<div style="display: grid; gap: 2rem;">
+  <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155;">
+    <h2 style="margin-bottom: 1rem; color: #38bdf8;">Unix 时间戳 与 DateTime 互转</h2>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8;">Unix 时间戳（秒）</label>
+        <input type="number" id="unixSeconds" placeholder="1704067200" style="width: 100%; padding: 0.75rem; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 1rem; font-family: monospace;">
+        <button id="toDateBtn" style="margin-top: 0.75rem; padding: 0.5rem 1rem; background: #38bdf8; color: #0f172a; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">转换</button>
+      </div>
+      <div>
+        <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8;">DateTime 字符串</label>
+        <input type="text" id="dateString" placeholder="2024-01-01 00:00:00" style="width: 100%; padding: 0.75rem; background: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #e2e8f0; font-size: 1rem; font-family: monospace;">
+        <button id="toUnixBtn" style="margin-top: 0.75rem; padding: 0.5rem 1rem; background: #38bdf8; color: #0f172a; border: none; border-radius: 6px; cursor: pointer; font-weight: 600;">转换</button>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155;">
+    <h2 style="margin-bottom: 1rem; color: #38bdf8;">Unity 常用时间参考</h2>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+      <div style="background: #0f172a; padding: 1rem; border-radius: 8px; text-align: center;">
+        <div style="color: #64748b; font-size: 0.75rem;">当前时间戳</div>
+        <div id="currentUnix" style="font-size: 1.25rem; font-family: monospace; color: #f1f5f9; margin-top: 0.25rem;"></div>
+      </div>
+      <div style="background: #0f172a; padding: 1rem; border-radius: 8px; text-align: center;">
+        <div style="color: #64748b; font-size: 0.75rem;">毫秒级</div>
+        <div id="currentUnixMs" style="font-size: 1.25rem; font-family: monospace; color: #f1f5f9; margin-top: 0.25rem;"></div>
+      </div>
+      <div style="background: #0f172a; padding: 1rem; border-radius: 8px; text-align: center;">
+        <div style="color: #64748b; font-size: 0.75rem;">格式化</div>
+        <div id="currentFormatted" style="font-size: 1rem; font-family: monospace; color: #f1f5f9; margin-top: 0.25rem;"></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+document.getElementById('toDateBtn').addEventListener('click', function() {
+  var input = document.getElementById('unixSeconds');
+  var output = document.getElementById('dateString');
+  var timestamp = parseInt(input.value);
+  if (!isNaN(timestamp)) {
+    var date = new Date(timestamp * 1000);
+    output.value = date.toLocaleString('zh-CN');
+  }
+});
+
+document.getElementById('toUnixBtn').addEventListener('click', function() {
+  var input = document.getElementById('dateString');
+  var output = document.getElementById('unixSeconds');
+  var date = new Date(input.value);
+  if (!isNaN(date.getTime())) {
+    output.value = Math.floor(date.getTime() / 1000).toString();
+  }
+});
+
+function updateCurrentTime() {
+  var now = new Date();
+  var unix = Math.floor(now.getTime() / 1000);
+  var unixMs = Math.floor(now.getTime());
+  var formatted = now.toLocaleString('zh-CN');
   
-  <div style="display: grid; gap: 2rem;">
-    <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155;">
-      <h2 style="margin-bottom: 1rem; color: #38bdf8;">Unix 时间戳 ↔ DateTime</h2>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
-        <div>
-          <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8;">Unix 时间戳（秒）</label>
-          <input type="number" id="unixSeconds" placeholder="1704067200" style="
-            width: 100%;
-            padding: 0.75rem;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: #e2e8f0;
-            font-size: 1rem;
-            font-family: monospace;
-          " />
-          <button onclick="unixToDate()" style="
-            margin-top: 0.75rem;
-            padding: 0.5rem 1rem;
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-          ">转换 →</button>
-        </div>
-        <div>
-          <label style="display: block; margin-bottom: 0.5rem; color: #94a3b8;">DateTime 字符串</label>
-          <input type="text" id="dateString" placeholder="2024-01-01 00:00:00" style="
-            width: 100%;
-            padding: 0.75rem;
-            background: #0f172a;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            color: #e2e8f0;
-            font-size: 1rem;
-            font-family: monospace;
-          " />
-          <button onclick="dateToUnix()" style="
-            margin-top: 0.75rem;
-            padding: 0.5rem 1rem;
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-          ">← 转换</button>
-        </div>
-      </div>
-    </section>
+  document.getElementById('currentUnix').textContent = unix.toString();
+  document.getElementById('currentUnixMs').textContent = unixMs.toString();
+  document.getElementById('currentFormatted').textContent = formatted;
+}
 
-    <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155;">
-      <h2 style="margin-bottom: 1rem; color: #38bdf8;">Unity 常用时间参考</h2>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-        <div style="background: #0f172a; padding: 1rem; border-radius: 8px; text-align: center;">
-          <div style="color: #64748b; font-size: 0.75rem;">当前时间戳</div>
-          <div id="currentUnix" style="font-size: 1.25rem; font-family: monospace; color: #f1f5f9; margin-top: 0.25rem;"></div>
-        </div>
-        <div style="background: #0f172a; padding: 1rem; border-radius: 8px; text-align: center;">
-          <div style="color: #64748b; font-size: 0.75rem;">毫秒级 / 1000</div>
-          <div id="currentUnixMs" style="font-size: 1.25rem; font-family: monospace; color: #f1f5f9; margin-top: 0.25rem;"></div>
-        </div>
-        <div style="background: #0f172a; padding: 1rem; border-radius: 8px; text-align: center;">
-          <div style="color: #64748b; font-size: 0.75rem;">格式化</div>
-          <div id="currentFormatted" style="font-size: 1rem; font-family: monospace; color: #f1f5f9; margin-top: 0.25rem;"></div>
-        </div>
-      </div>
-    </section>
-
-    <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155;">
-      <h2 style="margin-bottom: 1rem; color: #38bdf8;">Unity C# 代码参考</h2>
-      <pre style="background: #0f172a; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.875rem;"><code>// DateTime → Unix 时间戳
-long unixTime = new DateTimeOffset(dateTime).ToUnixTimeSeconds();
-
-// Unix 时间戳 → DateTime
-DateTime dateTime = DateTimeOffset.FromUnixTimeSeconds(unixTime).DateTime;
-
-// Unity 中的使用
-float timestamp = Time.time; // 游戏开始后的秒数
-float unscaledTimestamp = Time.unscaledTime; // 不受 Time.timeScale 影响
-
-// 获取服务器时间（需要 NTP 或 API）
-long serverTimestamp = await FetchServerTimestamp();</code></pre>
-    </section>
-  </div>
-
-  <script>
-    function unixToDate() {
-      const input = document.getElementById('unixSeconds') as HTMLInputElement;
-      const output = document.getElementById('dateString') as HTMLInputElement;
-      const timestamp = parseInt(input.value);
-      if (!isNaN(timestamp)) {
-        const date = new Date(timestamp * 1000);
-        output.value = date.toLocaleString('zh-CN');
-      }
-    }
-
-    function dateToUnix() {
-      const input = document.getElementById('dateString') as HTMLInputElement;
-      const output = document.getElementById('unixSeconds') as HTMLInputElement;
-      const date = new Date(input.value);
-      if (!isNaN(date.getTime())) {
-        output.value = Math.floor(date.getTime() / 1000).toString();
-      }
-    }
-
-    function updateCurrentTime() {
-      const now = new Date();
-      const unix = Math.floor(now.getTime() / 1000);
-      const unixMs = Math.floor(now.getTime());
-      const formatted = now.toLocaleString('zh-CN');
-      
-      document.getElementById('currentUnix').textContent = unix.toString();
-      document.getElementById('currentUnixMs').textContent = unixMs.toString();
-      document.getElementById('currentFormatted').textContent = formatted;
-    }
-
-    updateCurrentTime();
-    setInterval(updateCurrentTime, 1000);
-  </script>
+updateCurrentTime();
+setInterval(updateCurrentTime, 1000);
+</script>
 </BaseLayout>

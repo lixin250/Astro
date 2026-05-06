@@ -2,193 +2,75 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="JSON 格式化">
-  <h1 style="margin-bottom: 2rem;">📄 JSON 格式化工具</h1>
-  
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
-    <div>
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-        <label style="color: #94a3b8;">输入 JSON</label>
-        <div style="display: flex; gap: 0.5rem;">
-          <button onclick="formatJson()" style="
-            padding: 0.25rem 0.75rem;
-            background: #334155;
-            color: #e2e8f0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-          ">格式化</button>
-          <button onclick="minifyJson()" style="
-            padding: 0.25rem 0.75rem;
-            background: #334155;
-            color: #e2e8f0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-          ">压缩</button>
-          <button onclick="clearJson()" style="
-            padding: 0.25rem 0.75rem;
-            background: #334155;
-            color: #e2e8f0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-          ">清空</button>
-        </div>
-      </div>
-      <textarea id="inputJson" placeholder='{"key": "value"}' style="
-        width: 100%;
-        height: 300px;
-        padding: 1rem;
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 8px;
-        color: #e2e8f0;
-        font-family: 'Monaco', 'Menlo', monospace;
-        font-size: 0.875rem;
-        resize: vertical;
-      "></textarea>
+<BaseLayout title="JSON Formatter">
+<h1>JSON Formatter</h1>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+  <div>
+    <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+      <button id="formatBtn" style="padding: 0.5rem 1rem; background: #38bdf8; color: #0f172a; border: none; border-radius: 4px; cursor: pointer;">Format</button>
+      <button id="minifyBtn" style="padding: 0.5rem 1rem; background: #334155; color: white; border: none; border-radius: 4px; cursor: pointer;">Minify</button>
+      <button id="clearBtn" style="padding: 0.5rem 1rem; background: #334155; color: white; border: none; border-radius: 4px; cursor: pointer;">Clear</button>
     </div>
-    <div>
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-        <label style="color: #94a3b8;">输出结果</label>
-        <div style="display: flex; gap: 0.5rem;">
-          <button onclick="copyOutput()" style="
-            padding: 0.25rem 0.75rem;
-            background: #38bdf8;
-            color: #0f172a;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 600;
-          ">复制</button>
-        </div>
-      </div>
-      <textarea id="outputJson" readonly style="
-        width: 100%;
-        height: 300px;
-        padding: 1rem;
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 8px;
-        color: #38bdf8;
-        font-family: 'Monaco', 'Menlo', monospace;
-        font-size: 0.875rem;
-        resize: vertical;
-      "></textarea>
+    <textarea id="inputJson" placeholder='{"key": "value"}' style="width: 100%; height: 300px; padding: 1rem; background: #1e293b; color: white; border: 1px solid #334155; border-radius: 8px; font-family: monospace;"></textarea>
+  </div>
+  <div>
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+      <button id="copyBtn" style="padding: 0.5rem 1rem; background: #38bdf8; color: #0f172a; border: none; border-radius: 4px; cursor: pointer;">Copy</button>
     </div>
+    <textarea id="outputJson" readonly style="width: 100%; height: 300px; padding: 1rem; background: #1e293b; color: #38bdf8; border: 1px solid #334155; border-radius: 8px; font-family: monospace;"></textarea>
   </div>
+</div>
 
-  <div id="errorBox" style="
-    display: none;
-    background: rgba(248, 113, 113, 0.1);
-    border: 1px solid #F87171;
-    border-radius: 8px;
-    padding: 1rem;
-    margin-bottom: 2rem;
-  ">
-    <strong style="color: #F87171;">错误:</strong>
-    <span id="errorMessage" style="color: #FCA5A5; font-family: monospace;"></span>
-  </div>
+<div id="errorBox" style="display: none; background: rgba(248, 113, 113, 0.1); border: 1px solid #F87171; border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+  <strong style="color: #F87171;">Error:</strong>
+  <span id="errorMessage" style="color: #FCA5A5; font-family: monospace;"></span>
+</div>
 
-  <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155;">
-    <h2 style="margin-bottom: 1rem; color: #38bdf8;">Unity JsonUtility 使用示例</h2>
-    <pre style="background: #0f172a; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.875rem;"><code>using UnityEngine;
-using System;
+<script>
+var input = document.getElementById('inputJson');
+var output = document.getElementById('outputJson');
+var errorBox = document.getElementById('errorBox');
+var errorMessage = document.getElementById('errorMessage');
 
-[Serializable]
-public class PlayerData
-{
-    public string playerName;
-    public int level;
-    public float health;
-    public int[] inventory;
-    public Vector3Data position;
+function showError(msg) {
+  errorMessage.textContent = msg;
+  errorBox.style.display = 'block';
+  output.value = '';
 }
 
-[Serializable]
-public class Vector3Data
-{
-    public float x, y, z;
-    
-    public static Vector3Data FromVector3(Vector3 v) => 
-        new Vector3Data { x = v.x, y = v.y, z = v.z };
-    
-    public Vector3 ToVector3() => new Vector3(x, y, z);
+function hideError() {
+  errorBox.style.display = 'none';
 }
 
-public class JsonExample : MonoBehaviour
-{
-    void Start()
-    {
-        PlayerData player = new PlayerData
-        {
-            playerName = "Hero",
-            level = 10,
-            health = 100f,
-            inventory = new[] { 1, 2, 3, 4 },
-            position = Vector3Data.FromVector3(transform.position)
-        };
-        
-        // 序列化
-        string json = JsonUtility.ToJson(player, prettyPrint: true);
-        Debug.Log(json);
-        
-        // 反序列化
-        PlayerData loaded = JsonUtility.FromJson<PlayerData>(json);
-        Debug.Log($"Player: {loaded.playerName}, Level: {loaded.level}");
-    }
-}</code></pre>
-  </section>
+document.getElementById('formatBtn').addEventListener('click', function() {
+  hideError();
+  try {
+    var obj = JSON.parse(input.value);
+    output.value = JSON.stringify(obj, null, 2);
+  } catch (e) {
+    showError(e.message);
+  }
+});
 
-  <script>
-    const input = document.getElementById('inputJson') as HTMLTextAreaElement;
-    const output = document.getElementById('outputJson') as HTMLTextAreaElement;
-    const errorBox = document.getElementById('errorBox');
-    const errorMessage = document.getElementById('errorMessage');
+document.getElementById('minifyBtn').addEventListener('click', function() {
+  hideError();
+  try {
+    var obj = JSON.parse(input.value);
+    output.value = JSON.stringify(obj);
+  } catch (e) {
+    showError(e.message);
+  }
+});
 
-    function showError(msg: string) {
-      errorMessage.textContent = msg;
-      errorBox.style.display = 'block';
-      output.value = '';
-    }
+document.getElementById('clearBtn').addEventListener('click', function() {
+  input.value = '';
+  output.value = '';
+  hideError();
+});
 
-    function hideError() {
-      errorBox.style.display = 'none';
-    }
-
-    function formatJson() {
-      hideError();
-      try {
-        const obj = JSON.parse(input.value);
-        output.value = JSON.stringify(obj, null, 2);
-      } catch (e) {
-        showError((e as Error).message);
-      }
-    }
-
-    function minifyJson() {
-      hideError();
-      try {
-        const obj = JSON.parse(input.value);
-        output.value = JSON.stringify(obj);
-      } catch (e) {
-        showError((e as Error).message);
-      }
-    }
-
-    function clearJson() {
-      input.value = '';
-      output.value = '';
-      hideError();
-    }
-
-    function copyOutput() {
-      navigator.clipboard.writeText(output.value);
-    }
-  </script>
+document.getElementById('copyBtn').addEventListener('click', function() {
+  navigator.clipboard.writeText(output.value);
+});
+</script>
 </BaseLayout>
