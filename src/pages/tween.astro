@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Tween 函数可视化">
+  <h1 style="margin-bottom: 2rem;">📈 Tween 缓动函数可视化</h1>
+  
+  <div style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; margin-bottom: 2rem;">
+    <div style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+      <label style="color: #94a3b8;">选择缓动函数:</label>
+      <select id="easingFunction" style="
+        padding: 0.5rem 1rem;
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 6px;
+        color: #e2e8f0;
+        font-size: 1rem;
+      ">
+        <optgroup label="线性">
+          <option value="linear">Linear</option>
+        </optgroup>
+        <optgroup label="二次">
+          <option value="easeInQuad">Ease In Quad</option>
+          <option value="easeOutQuad">Ease Out Quad</option>
+          <option value="easeInOutQuad">Ease In Out Quad</option>
+        </optgroup>
+        <optgroup label="三次">
+          <option value="easeInCubic">Ease In Cubic</option>
+          <option value="easeOutCubic" selected>Ease Out Cubic</option>
+          <option value="easeInOutCubic">Ease In Out Cubic</option>
+        </optgroup>
+        <optgroup label="四次">
+          <option value="easeInQuart">Ease In Quart</option>
+          <option value="easeOutQuart">Ease Out Quart</option>
+          <option value="easeInOutQuart">Ease In Out Quart</option>
+        </optgroup>
+        <optgroup label="正弦">
+          <option value="easeInSine">Ease In Sine</option>
+          <option value="easeOutSine">Ease Out Sine</option>
+          <option value="easeInOutSine">Ease In Out Sine</option>
+        </optgroup>
+        <optgroup label="指数">
+          <option value="easeInExpo">Ease In Expo</option>
+          <option value="easeOutExpo">Ease Out Expo</option>
+          <option value="easeInOutExpo">Ease In Out Expo</option>
+        </optgroup>
+        <optgroup label="回弹">
+          <option value="easeOutBounce">Ease Out Bounce</option>
+          <option value="easeOutBack">Ease Out Back</option>
+        </optgroup>
+      </select>
+      <button onclick="animateBall()" style="
+        padding: 0.5rem 1.5rem;
+        background: #38bdf8;
+        color: #0f172a;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+      ">▶ 播放动画</button>
+    </div>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155;">
+      <h2 style="margin-bottom: 1rem; color: #38bdf8;">函数曲线</h2>
+      <canvas id="curveCanvas" width="400" height="400" style="
+        background: #0f172a;
+        border-radius: 8px;
+        width: 100%;
+        height: auto;
+      "></canvas>
+    </section>
+
+    <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155;">
+      <h2 style="margin-bottom: 1rem; color: #38bdf8;">动画演示</h2>
+      <div id="animationDemo" style="
+        background: #0f172a;
+        border-radius: 8px;
+        height: 100px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 1rem;
+      ">
+        <div id="ball" style="
+          width: 40px;
+          height: 40px;
+          background: linear-gradient(135deg, #38bdf8, #818cf8);
+          border-radius: 50%;
+          position: absolute;
+          left: 10px;
+          top: 50%;
+          transform: translateY(-50%);
+        "></div>
+      </div>
+      <div id="tValue" style="
+        text-align: center;
+        font-family: monospace;
+        color: #64748b;
+      ">t = 0.00</div>
+    </section>
+  </div>
+
+  <section style="background: #1e293b; padding: 1.5rem; border-radius: 12px; border: 1px solid #334155; margin-top: 2rem;">
+    <h2 style="margin-bottom: 1rem; color: #38bdf8;">Unity C# 代码参考</h2>
+    <pre style="background: #0f172a; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.875rem;"><code>// Unity 中的 Tween 实现示例（DOTween 风格）
+public static class EasingFunctions
+{
+    public static float EaseOutCubic(float t)
+    {
+        return 1 - Mathf.Pow(1 - t, 3);
+    }
+
+    public static float EaseInOutQuad(float t)
+    {
+        return t < 0.5f 
+            ? 2 * t * t 
+            : 1 - Mathf.Pow(-2 * t + 2, 2) / 2;
+    }
+    
+    public static float EaseOutBounce(float t)
+    {
+        float n1 = 7.5625f;
+        float d1 = 2.75f;
+        if (t < 1f / d1) return n1 * t * t;
+        if (t < 2f / d1) return n1 * (t -= 1.5f / d1) * t + 0.75f;
+        if (t < 2.5f / d1) return n1 * (t -= 2.25f / d1) * t + 0.9375f;
+        return n1 * (t -= 2.625f / d1) * t + 0.984375f;
+    }
+}
+
+// 使用示例
+IEnumerator MoveCoroutine()
+{
+    float duration = 1f;
+    float elapsed = 0f;
+    Vector3 start = transform.position;
+    Vector3 end = start + Vector3.right * 5f;
+    
+    while (elapsed < duration)
+    {
+        elapsed += Time.deltaTime;
+        float t = elapsed / duration;
+        float easedT = EasingFunctions.EaseOutCubic(t);
+        
+        transform.position = Vector3.Lerp(start, end, easedT);
+        yield return null;
+    }
+}</code></pre>
+  </section>
+
+  <script>
+    const easings: Record<string, (t: number) => number> = {
+      linear: (t) => t,
+      easeInQuad: (t) => t * t,
+      easeOutQuad: (t) => t * (2 - t),
+      easeInOutQuad: (t) => t < 0.5f ? 2 * t * t : -1 + (4 - 2 * t) * t,
+      easeInCubic: (t) => t * t * t,
+      easeOutCubic: (t) => (--t) * t * t + 1,
+      easeInOutCubic: (t) => t < 0.5f ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1,
+      easeInQuart: (t) => t * t * t * t,
+      easeOutQuart: (t) => 1 - (--t) * t * t * t,
+      easeInOutQuart: (t) => t < 0.5f ? 8 * t * t * t * t : 1 - 8 * (--t) * t * t * t,
+      easeInSine: (t) => 1 - Math.cos(t * Math.PI / 2),
+      easeOutSine: (t) => Math.sin(t * Math.PI / 2),
+      easeInOutSine: (t) => -(Math.cos(Math.PI * t) - 1) / 2,
+      easeInExpo: (t) => t === 0 ? 0 : Math.pow(2, 10 * t - 10),
+      easeOutExpo: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+      easeInOutExpo: (t) => t === 0 ? 0 : t === 1 ? 1 : t < 0.5 ? Math.pow(2, 20 * t - 10) / 2 : (2 - Math.pow(2, -20 * t + 10)) / 2,
+      easeOutBounce: (t) => {
+        const n1 = 7.5625, d1 = 2.75;
+        if (t < 1 / d1) return n1 * t * t;
+        if (t < 2 / d1) return n1 * (t -= 1.5 / d1) * t + 0.75;
+        if (t < 2.5 / d1) return n1 * (t -= 2.25 / d1) * t + 0.9375;
+        return n1 * (t -= 2.625 / d1) * t + 0.984375;
+      },
+      easeOutBack: (t) => {
+        const c1 = 1.70158, c3 = c1 + 1;
+        return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+      }
+    };
+
+    function drawCurve() {
+      const canvas = document.getElementById('curveCanvas') as HTMLCanvasElement;
+      const ctx = canvas.getContext('2d');
+      const fn = document.getElementById('easingFunction') as HTMLSelectElement;
+      const easing = easings[fn.value];
+
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(0, 0, 400, 400);
+
+      ctx.strokeStyle = '#334155';
+      ctx.lineWidth = 1;
+      for (let i = 0; i <= 4; i++) {
+        ctx.beginPath();
+        ctx.moveTo(0, 100 * i);
+        ctx.lineTo(400, 100 * i);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(100 * i, 0);
+        ctx.lineTo(100 * i, 400);
+        ctx.stroke();
+      }
+
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      for (let i = 0; i <= 100; i++) {
+        const t = i / 100;
+        const x = t * 400;
+        const y = 400 - easing(t) * 400;
+        if (i === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      ctx.fillStyle = '#818cf8';
+      for (let i = 0; i <= 4; i++) {
+        const t = i / 4;
+        const x = t * 400;
+        const y = 400 - easing(t) * 400;
+        ctx.beginPath();
+        ctx.arc(x, y, 6, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    function animateBall() {
+      const ball = document.getElementById('ball');
+      const tDisplay = document.getElementById('tValue');
+      const fn = document.getElementById('easingFunction') as HTMLSelectElement;
+      const easing = easings[fn.value];
+      const demo = document.getElementById('animationDemo');
+      const duration = 1000;
+      const startTime = performance.now();
+
+      function update(currentTime: number) {
+        const elapsed = currentTime - startTime;
+        let t = Math.min(elapsed / duration, 1);
+        const easedT = easing(t);
+        
+        ball.style.left = (10 + easedT * (demo.offsetWidth - 60)) + 'px';
+        tDisplay.textContent = `t = ${t.toFixed(2)} (eased: ${easedT.toFixed(3)})`;
+
+        if (t < 1) requestAnimationFrame(update);
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    document.getElementById('easingFunction').addEventListener('change', drawCurve);
+    drawCurve();
+  </script>
+</BaseLayout>

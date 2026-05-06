@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const tools = [
+  {
+    name: '时间戳转换',
+    path: '/timestamp',
+    description: 'Unix 时间戳与 DateTime 互转，Unity Time.time 支持',
+    icon: '🕐'
+  },
+  {
+    name: 'Tween 函数可视化',
+    path: '/tween',
+    description: '缓动函数图表展示，Easing 效果预览',
+    icon: '📈'
+  },
+  {
+    name: '颜色转换',
+    path: '/color',
+    description: 'Hex / RGB / HSV / Unity Color 互转',
+    icon: '🎨'
+  },
+  {
+    name: 'JSON 格式化',
+    path: '/json',
+    description: 'JSON 压缩/格式化，语法高亮',
+    icon: '📄'
+  }
+];
+---
+
+<BaseLayout title="工具列表">
+  <h1 style="margin-bottom: 2rem;">Unity 开发者工具集</h1>
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem;">
+    {tools.map(tool => (
+      <a href={tool.path} style="
+        display: block;
+        background: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-decoration: none;
+        transition: all 0.2s;
+      ">
+        <div style="font-size: 2rem; margin-bottom: 1rem;">{tool.icon}</div>
+        <h2 style="color: #f1f5f9; margin-bottom: 0.5rem;">{tool.name}</h2>
+        <p style="color: #94a3b8; font-size: 0.875rem;">{tool.description}</p>
+      </a>
+    ))}
+  </div>
+</BaseLayout>
