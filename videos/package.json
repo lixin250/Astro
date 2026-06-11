@@ -3,10 +3,8 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "wrangler dev --config worker/wrangler.jsonc",
-    "deploy": "wrangler deploy --config worker/wrangler.jsonc",
     "upload": "node scripts/upload-videos.mjs",
-    "setup": "wrangler r2 bucket create videos --config worker/wrangler.jsonc"
+    "deploy": "wrangler deploy --config worker/wrangler.jsonc"
   },
   "devDependencies": {
     "wrangler": "^4.99.0"

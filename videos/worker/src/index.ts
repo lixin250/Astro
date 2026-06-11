@@ -74,7 +74,7 @@ async function listVideos(bucket: R2Bucket) {
 
 function renderGallery(videos: Awaited<ReturnType<typeof listVideos>>): string {
   const cards = videos.length === 0
-    ? `<p class="empty">暂无视频。把视频放进 <code>videos/files/</code> 后，双击 <code>upload-videos.bat</code> 上传。</p>`
+    ? `<p class="empty">暂无视频。把视频放进 <code>videos/files/</code> 后，运行 <code>upload-videos.bat</code> 上传到 R2。</p>`
     : videos.map((video) => `
         <article class="card">
           <div class="player-wrap">

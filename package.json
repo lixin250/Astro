@@ -10,9 +10,7 @@
     "tools:build": "npm run build -w tools",
     "tools:build:cf": "npm install && npm run tools:build",
     "tools:preview": "npm run preview -w tools",
-    "videos:dev": "npm run dev -w videos",
     "videos:deploy": "npm run deploy -w videos",
-    "videos:upload": "npm run upload -w videos",
-    "videos:setup": "npm run setup -w videos"
+    "videos:upload": "npm run upload -w videos"
   }
 }
