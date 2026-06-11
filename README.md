@@ -1,67 +1,78 @@
-# Unity Dev Tools
+# lixin.dev
 
-基于 Astro + Cloudflare Pages 构建的 Unity 开发者工具集。
+一个仓库，两类项目：
 
-## 工具列表
-
-- 🕐 时间戳转换 - Unix 时间戳与 DateTime 互转
-- 📈 Tween 可视化 - 缓动函数图表展示
-- 🎨 颜色转换 - Hex / RGB / HSV / Unity Color 互转
-- 📄 JSON 格式化 - JSON 压缩/格式化
-
-## 本地开发
-
-```bash
-npm install
-npm run dev
-```
-
-## 构建部署
-
-```bash
-npm run build
-```
-
-## Cloudflare Pages 部署
-
-### 方式一：Wrangler CLI
-
-```bash
-npm install -D wrangler
-npx wrangler pages deploy dist
-```
-
-### 方式二：GitHub Actions 自动部署
-
-1. 在 Cloudflare Dashboard 创建 Pages 项目
-2. 连接到 GitHub 仓库
-3. 设置构建设置：
-   - **Build command**: `npm run build`
-   - **Build output directory**: `dist`
-4. 配置自定义域名 `tools.lixin.dev`
-
-### 手动部署步骤
-
-1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com)
-2. 进入 **Workers & Pages** → **Create application** → **Pages** → **Create a project**
-3. 选择 **Direct upload** 或 **GitHub**
-4. 上传 `dist` 文件夹（或配置 GitHub 集成）
-5. 在 **Custom domains** 中添加 `tools.lixin.dev`
+| 目录 | 用途 | 域名 |
+|------|------|------|
+| `tools/` | Astro 开发者工具集 | `tools.lixin.dev` |
+| `videos/` | 视频库（R2 + Worker） | `videos.lixin.dev` |
 
 ## 项目结构
 
 ```
 /
-├── src/
-│   ├── layouts/
-│   │   └── BaseLayout.astro    # 基础布局
-│   └── pages/
-│       ├── index.astro          # 首页
-│       ├── timestamp.astro      # 时间戳工具
-│       ├── tween.astro          # Tween 可视化
-│       ├── color.astro          # 颜色转换
-│       └── json.astro           # JSON 格式化
-├── astro.config.mjs             # Astro 配置
-├── wrangler.toml                # Wrangler 配置
-└── package.json
+├── tools/                       # 工具类（Astro）
+│   ├── src/
+│   │   ├── layouts/
+│   │   └── pages/
+│   ├── astro.config.mjs
+│   ├── wrangler.toml
+│   └── package.json
+│
+├── videos/                      # 视频类（Worker + R2）
+│   ├── files/                   # 本地视频放这里
+│   ├── worker/                  # Worker 代码
+│   ├── scripts/                 # 上传脚本
+│   ├── upload-videos.bat        # 双击上传
+│   ├── deploy-videos.bat        # 双击部署
+│   ├── setup-videos.bat         # 首次创建 R2
+│   ├── login-cloudflare.bat     # 登录 Cloudflare
+│   └── package.json
+│
+└── package.json                 # 根目录统一入口
 ```
+
+---
+
+## tools/ — 开发者工具
+
+- 时间戳转换
+- Tween 可视化
+- 颜色转换
+- JSON 格式化
+
+```bash
+npm install
+npm run tools:dev      # 本地开发
+npm run tools:build    # 构建
+```
+
+### Cloudflare Pages 部署
+
+GitHub 连接后，构建设置改为：
+
+- **Build command**: `npm run tools:build`
+- **Build output directory**: `tools/dist`
+- **自定义域名**: `tools.lixin.dev`
+
+---
+
+## videos/ — 视频库
+
+视频文件放 `videos/files/`，通过 R2 托管，Worker 提供画廊页面。
+
+### 全部用 bat 双击操作（无需命令行）
+
+进入 `videos/` 文件夹：
+
+| bat 文件 | 作用 |
+|----------|------|
+| **`首次使用.bat`** | 一键走完首次 4 步（推荐） |
+| `login-cloudflare.bat` | 登录 Cloudflare |
+| `setup-videos.bat` | 创建 R2 bucket |
+| `upload-videos.bat` | 上传视频 |
+| `deploy-videos.bat` | 部署 Worker |
+
+首次：双击 **`首次使用.bat`** 即可，会自动安装依赖、登录、创建 bucket、上传、部署。
+
+日常：把新视频放进 `videos/files/`，双击 **`upload-videos.bat`**。

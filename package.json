@@ -1,14 +1,17 @@
 {
-  "name": "astro-tools",
-  "type": "module",
-  "version": "1.0.0",
+  "name": "lixin-dev",
+  "private": true,
+  "workspaces": [
+    "tools",
+    "videos"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview"
-  },
-  "dependencies": {
-    "astro": "^5.0.0",
-    "@astrojs/cloudflare": "^12.0.0"
+    "tools:dev": "npm run dev -w tools",
+    "tools:build": "npm run build -w tools",
+    "tools:preview": "npm run preview -w tools",
+    "videos:dev": "npm run dev -w videos",
+    "videos:deploy": "npm run deploy -w videos",
+    "videos:upload": "npm run upload -w videos",
+    "videos:setup": "npm run setup -w videos"
   }
 }

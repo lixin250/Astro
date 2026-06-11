@@ -5,3 +5,9 @@ dist/
 .env
 *.log
 .DS_Store
+
+# 大体积视频文件不提交到 Git，通过 R2 托管
+videos/files/*.mp4
+videos/files/*.webm
+videos/files/*.mov
+videos/files/*.mkv
