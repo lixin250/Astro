@@ -8,6 +8,7 @@
   "scripts": {
     "tools:dev": "npm run dev -w tools",
     "tools:build": "npm run build -w tools",
+    "tools:build:cf": "npm install && npm run tools:build",
     "tools:preview": "npm run preview -w tools",
     "videos:dev": "npm run dev -w videos",
     "videos:deploy": "npm run deploy -w videos",
