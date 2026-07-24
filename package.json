@@ -3,13 +3,18 @@
   "private": true,
   "workspaces": [
     "tools",
-    "videos"
+    "videos",
+    "resume"
   ],
   "scripts": {
     "tools:dev": "npm run dev -w tools",
     "tools:build": "npm run build -w tools",
     "tools:build:cf": "npm install && npm run tools:build",
     "tools:preview": "npm run preview -w tools",
+    "resume:dev": "npm run dev -w resume",
+    "resume:build": "npm run build -w resume",
+    "resume:build:cf": "npm install && npm run resume:build",
+    "resume:preview": "npm run preview -w resume",
     "videos:deploy": "npm run deploy -w videos",
     "videos:upload": "npm run upload -w videos"
   }

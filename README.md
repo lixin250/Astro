@@ -1,10 +1,11 @@
 # lixin.dev
 
-一个仓库，两类项目：
+一个仓库，三类项目：
 
 | 目录 | 用途 | 域名 | 部署方式 |
 |------|------|------|----------|
 | `tools/` | Astro 开发者工具集 | `tools.lixin.dev` | GitHub → Cloudflare Pages |
+| `resume/` | 个人简历（可导出 PDF） | `resume.lixin.dev` | GitHub → Cloudflare Pages |
 | `videos/` | 视频库（R2 + Worker） | `videos.lixin.dev` | GitHub → Cloudflare Worker |
 
 ## 项目结构
@@ -14,6 +15,11 @@
 ├── tools/                       # 工具类（Astro）
 │   ├── src/
 │   ├── astro.config.mjs
+│   └── package.json
+│
+├── resume/                      # 简历站（Astro）
+│   ├── src/data/resume.ts       # 改内容只动这个文件
+│   ├── src/pages/
 │   └── package.json
 │
 ├── videos/
@@ -42,6 +48,26 @@ npm run tools:build
 - **Build command**: `npm run tools:build:cf`
 - **Build output directory**: `tools/dist`
 - **自定义域名**: `tools.lixin.dev`
+
+---
+
+## resume/ — 个人简历
+
+```bash
+npm install
+npm run resume:dev
+npm run resume:build
+```
+
+改经历 / 作品 / 技能：编辑 `resume/src/data/resume.ts`。
+
+页面右上角 **导出 PDF**：走浏览器打印，另存为 PDF（已做打印样式，会隐藏按钮）。
+
+### Cloudflare Pages 设置
+
+- **Build command**: `npm run resume:build:cf`
+- **Build output directory**: `resume/dist`
+- **自定义域名**: `resume.lixin.dev`
 
 ---
 

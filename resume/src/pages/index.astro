@@ -1,0 +1,444 @@
+---
+import ResumeLayout from '../layouts/ResumeLayout.astro';
+import { resume } from '../data/resume';
+import '../styles/resume.css';
+
+const pageTitle = `${resume.name} · ${resume.title}`;
+const pdfName = 'LiXin-Resume.pdf';
+---
+
+<ResumeLayout title={pageTitle} description={`${resume.name} · ${resume.title} · ${resume.intent.map((i) => i.value).join(' · ')}`}>
+  <div class="page">
+    <div class="toolbar" data-toolbar>
+      <label class="avatar-switch" title="仅影响页面预览；导出 PDF 始终使用正式头像">
+        <input type="checkbox" id="avatar-toggle" />
+        <span class="avatar-switch-ui" aria-hidden="true"></span>
+        <span class="avatar-switch-text">预览正式头像</span>
+      </label>
+      <button type="button" class="btn" id="export-pdf" data-pdf-name={pdfName}>
+        导出 PDF
+      </button>
+      <button type="button" class="btn btn-ghost" id="print-resume">
+        打印
+      </button>
+      <div class="contact-wrap">
+        <button type="button" class="btn btn-ghost" id="contact-toggle" aria-expanded="false" aria-controls="contact-menu">
+          联系我
+        </button>
+        <div class="contact-menu" id="contact-menu" hidden>
+          <button
+            type="button"
+            class="contact-item"
+            data-action="email"
+            data-copy={resume.email}
+            data-copy-label="邮箱"
+          >
+            <span class="contact-label">邮箱</span>
+            <span class="contact-value">{resume.email}</span>
+            <span class="contact-hint">点击复制邮箱（请粘贴到 QQ 邮箱）</span>
+          </button>
+          <button
+            type="button"
+            class="contact-item"
+            data-action="qq"
+            data-copy={resume.qq}
+            data-copy-label="QQ号"
+            data-qq={resume.qq}
+          >
+            <span class="contact-label">QQ</span>
+            <span class="contact-value">{resume.qq}</span>
+            <span class="contact-hint">点击复制 QQ 号，并尝试拉起本机 QQ</span>
+          </button>
+          <button
+            type="button"
+            class="contact-item"
+            data-action="copy"
+            data-copy={resume.wechat}
+            data-copy-label="微信号"
+          >
+            <span class="contact-label">微信</span>
+            <span class="contact-value">{resume.wechat}</span>
+            <span class="contact-hint">点击复制微信号</span>
+          </button>
+          <button
+            type="button"
+            class="contact-item"
+            data-action="copy"
+            data-copy={resume.phone}
+            data-copy-label="电话"
+          >
+            <span class="contact-label">电话</span>
+            <span class="contact-value">{resume.phone}</span>
+            <span class="contact-hint">点击复制手机号</span>
+          </button>
+          <p class="contact-toast" id="contact-toast" hidden></p>
+        </div>
+      </div>
+    </div>
+
+    <article class="resume" id="resume">
+      <header class="hero">
+        <div class="hero-main">
+          <div class="hero-text">
+            <h1 class="brand">{resume.name}</h1>
+            <p class="basics">{resume.basics.join('  ·  ')}</p>
+            <ul class="meta">
+              <li>
+                <button type="button" class="meta-copy" data-action="copy" data-copy={resume.phone} data-copy-label="电话">
+                  {resume.phone}
+                </button>
+              </li>
+              <li>
+                <button type="button" class="meta-copy" data-action="email" data-copy={resume.email} data-copy-label="邮箱">
+                  {resume.email}
+                </button>
+              </li>
+            </ul>
+            <ul class="intent">
+              {resume.intent.map((item) => (
+                <li>
+                  <span>{item.label}</span>
+                  <strong>{item.value}</strong>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <img
+            class="avatar"
+            id="resume-avatar"
+            src={resume.avatarPreview}
+            data-preview={resume.avatarPreview}
+            data-export={resume.avatarExport}
+            alt={`${resume.name} 头像`}
+            width="128"
+            height="128"
+          />
+        </div>
+      </header>
+
+      <section class="section">
+        <h2>个人优势</h2>
+        <ul class="bullets strength-list">
+          {resume.strengths.map((line) => (
+            <li>{line}</li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="section">
+        <h2>工作经历</h2>
+        {resume.experience.map((job) => (
+          <div class="entry">
+            <div class="entry-head">
+              <div>
+                <h3>{job.company}</h3>
+                <p class="role">{job.role}</p>
+              </div>
+              <p class="period">{job.period}</p>
+            </div>
+            {job.overview ? <p class="project-desc">{job.overview}</p> : null}
+            {job.highlights.length > 0 ? (
+              <ol class="bullets numbered">
+                {job.highlights.map((line) => (
+                  <li>{line}</li>
+                ))}
+              </ol>
+            ) : null}
+            {job.achievements.length > 0 ? (
+              <>
+                <p class="subhead">业绩</p>
+                <ul class="bullets">
+                  {job.achievements.map((line) => (
+                    <li>{line}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+          </div>
+        ))}
+      </section>
+
+      <section class="section">
+        <h2>教育经历</h2>
+        {resume.education.map((edu) => (
+          <div class="entry">
+            <div class="entry-head">
+              <div>
+                <h3>{edu.school}</h3>
+                <p class="role">{edu.degree}</p>
+              </div>
+              <p class="period">{edu.period}</p>
+            </div>
+          </div>
+        ))}
+      </section>
+    </article>
+
+    <p class="footer-note">内容来自 `resume/src/data/resume.ts` · 页面默认示意头像，导出 PDF 自动换成正式头像</p>
+  </div>
+</ResumeLayout>
+
+<script>
+  const exportBtn = document.getElementById('export-pdf');
+  const printBtn = document.getElementById('print-resume');
+  const resumeEl = document.getElementById('resume');
+  const contactToggle = document.getElementById('contact-toggle');
+  const contactMenu = document.getElementById('contact-menu');
+  const toast = document.getElementById('contact-toast');
+  const avatarImg = document.getElementById('resume-avatar');
+  const avatarToggle = document.getElementById('avatar-toggle');
+
+  function setExportBusy(busy: boolean) {
+    if (!(exportBtn instanceof HTMLButtonElement)) return;
+    exportBtn.disabled = busy;
+    exportBtn.textContent = busy ? '导出中…' : '导出 PDF';
+  }
+
+  function waitForImage(img: HTMLImageElement, timeoutMs = 8000) {
+    if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+    return new Promise<void>((resolve, reject) => {
+      const timer = window.setTimeout(() => {
+        cleanup();
+        reject(new Error('头像加载超时'));
+      }, timeoutMs);
+      const onLoad = () => {
+        cleanup();
+        resolve();
+      };
+      const onError = () => {
+        cleanup();
+        reject(new Error('头像加载失败'));
+      };
+      const cleanup = () => {
+        window.clearTimeout(timer);
+        img.removeEventListener('load', onLoad);
+        img.removeEventListener('error', onError);
+      };
+      img.addEventListener('load', onLoad);
+      img.addEventListener('error', onError);
+    });
+  }
+
+  async function withExportAvatar<T>(run: () => Promise<T>): Promise<T> {
+    if (!(avatarImg instanceof HTMLImageElement)) return run();
+
+    const previewSrc = avatarImg.getAttribute('data-preview') || avatarImg.src;
+    const exportSrc = avatarImg.getAttribute('data-export') || avatarImg.src;
+    const previousSrc = avatarImg.getAttribute('src') || previewSrc;
+
+    avatarImg.src = exportSrc;
+    try {
+      try {
+        await waitForImage(avatarImg);
+      } catch (error) {
+        console.warn(error);
+        // 头像失败不阻断导出
+      }
+      return await run();
+    } finally {
+      const preferExport = avatarToggle instanceof HTMLInputElement && avatarToggle.checked;
+      avatarImg.src = preferExport ? exportSrc : previousSrc === exportSrc ? previewSrc : previousSrc;
+    }
+  }
+
+  function triggerBlobDownload(blob: Blob, filename: string) {
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.rel = 'noopener';
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }
+
+  async function downloadPdf() {
+    if (!(resumeEl instanceof HTMLElement) || !(exportBtn instanceof HTMLButtonElement)) return;
+
+    // 避免中文文件名在部分浏览器/jsPDF 下不触发下载
+    const rawName = exportBtn.getAttribute('data-pdf-name') || 'resume.pdf';
+    const filename = /\.pdf$/i.test(rawName) ? rawName.replace(/[\\/:*?"<>|]+/g, '_') : 'resume.pdf';
+    const safeFilename = /^[\x00-\x7F]+$/.test(filename) ? filename : 'LiXin-Resume.pdf';
+
+    setExportBusy(true);
+
+    try {
+      await withExportAvatar(async () => {
+        const [{ default: html2canvas }, { jsPDF }] = await Promise.all([
+          import('html2canvas'),
+          import('jspdf'),
+        ]);
+
+        // 等一帧，确保头像替换后布局稳定
+        await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+
+        const canvas = await html2canvas(resumeEl, {
+          scale: 2,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: '#ffffff',
+          logging: false,
+          imageTimeout: 5000,
+        });
+
+        if (!canvas.width || !canvas.height) {
+          throw new Error('页面截图失败');
+        }
+
+        const imgData = canvas.toDataURL('image/jpeg', 0.92);
+        const pdf = new jsPDF({
+          orientation: 'portrait',
+          unit: 'mm',
+          format: 'a4',
+          compress: true,
+        });
+
+        const pageWidth = pdf.internal.pageSize.getWidth();
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const margin = 8;
+        const contentWidth = pageWidth - margin * 2;
+        const imgHeight = (canvas.height * contentWidth) / canvas.width;
+
+        let heightLeft = imgHeight;
+        let position = margin;
+
+        pdf.addImage(imgData, 'JPEG', margin, position, contentWidth, imgHeight);
+        heightLeft -= pageHeight - margin * 2;
+
+        while (heightLeft > 0) {
+          position = margin - (imgHeight - heightLeft);
+          pdf.addPage();
+          pdf.addImage(imgData, 'JPEG', margin, position, contentWidth, imgHeight);
+          heightLeft -= pageHeight - margin * 2;
+        }
+
+        const blob = pdf.output('blob');
+        if (!(blob instanceof Blob) || blob.size < 100) {
+          throw new Error('PDF 生成失败');
+        }
+
+        triggerBlobDownload(blob, safeFilename);
+      });
+    } catch (error) {
+      console.error(error);
+      alert(`导出 PDF 失败：${error instanceof Error ? error.message : '未知错误'}。可改用「打印」。`);
+    } finally {
+      setExportBusy(false);
+    }
+  }
+
+  async function copyText(text: string) {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+    const input = document.createElement('textarea');
+    input.value = text;
+    input.setAttribute('readonly', '');
+    input.style.position = 'fixed';
+    input.style.left = '-9999px';
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+  }
+
+  function showToast(message: string) {
+    if (!(toast instanceof HTMLElement)) return;
+    toast.hidden = false;
+    toast.textContent = message;
+    window.setTimeout(() => {
+      toast.hidden = true;
+    }, 2200);
+  }
+
+  function tryOpenProtocol(url: string) {
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = url;
+    document.body.appendChild(iframe);
+    window.setTimeout(() => iframe.remove(), 1500);
+  }
+
+  async function handleContactAction(el: HTMLElement) {
+    const action = el.getAttribute('data-action') || 'copy';
+    const value = el.getAttribute('data-copy') || '';
+    const label = el.getAttribute('data-copy-label') || '内容';
+    if (!value) return;
+
+    await copyText(value);
+
+    if (action === 'email') {
+      // 系统 mailto 常被绑到网页邮箱，无法指定 QQ 邮箱客户端 → 只复制
+      showToast(`已复制邮箱：${value}，请打开 QQ 邮箱粘贴写信`);
+      return;
+    }
+
+    if (action === 'qq') {
+      const qq = el.getAttribute('data-qq') || value;
+      // 优先复制；再尝试本机协议（多数浏览器会拦截，失败也不影响）
+      tryOpenProtocol(`tencent://message/?uin=${qq}&Site=resume.lixin.dev&Menu=yes`);
+      showToast(`已复制 QQ：${qq}；若本机已装 QQ，请允许打开应用`);
+      return;
+    }
+
+    showToast(`已复制${label}：${value}`);
+  }
+
+  function closeContactMenu() {
+    if (!(contactMenu instanceof HTMLElement) || !(contactToggle instanceof HTMLButtonElement)) return;
+    contactMenu.hidden = true;
+    contactToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  avatarToggle?.addEventListener('change', () => {
+    if (!(avatarImg instanceof HTMLImageElement) || !(avatarToggle instanceof HTMLInputElement)) return;
+    const previewSrc = avatarImg.getAttribute('data-preview') || '';
+    const exportSrc = avatarImg.getAttribute('data-export') || '';
+    avatarImg.src = avatarToggle.checked ? exportSrc : previewSrc;
+  });
+
+  exportBtn?.addEventListener('click', () => {
+    void downloadPdf();
+  });
+
+  printBtn?.addEventListener('click', () => {
+    void withExportAvatar(async () => {
+      window.print();
+    });
+  });
+
+  contactToggle?.addEventListener('click', (event) => {
+    event.stopPropagation();
+    if (!(contactMenu instanceof HTMLElement) || !(contactToggle instanceof HTMLButtonElement)) return;
+    const open = contactMenu.hidden;
+    contactMenu.hidden = !open;
+    contactToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      closeContactMenu();
+      return;
+    }
+
+    const actionEl = target.closest<HTMLElement>('[data-action]');
+    if (actionEl) {
+      event.preventDefault();
+      event.stopPropagation();
+      void handleContactAction(actionEl);
+      return;
+    }
+
+    if (!target.closest('.contact-wrap')) {
+      closeContactMenu();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeContactMenu();
+  });
+</script>
