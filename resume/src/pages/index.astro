@@ -1,10 +1,12 @@
 ---
 import ResumeLayout from '../layouts/ResumeLayout.astro';
 import { resume } from '../data/resume';
+import { linkify } from '../lib/linkify';
 import '../styles/resume.css';
 
 const pageTitle = `${resume.name} · ${resume.title}`;
 const pdfName = 'LiXin-Resume.pdf';
+const links = resume.keywordLinks;
 ---
 
 <ResumeLayout title={pageTitle} description={`${resume.name} · ${resume.title} · ${resume.intent.map((i) => i.value).join(' · ')}`}>
@@ -120,7 +122,7 @@ const pdfName = 'LiXin-Resume.pdf';
         <h2>个人优势</h2>
         <ul class="bullets strength-list">
           {resume.strengths.map((line) => (
-            <li>{line}</li>
+            <li set:html={linkify(line, links)} />
           ))}
         </ul>
       </section>
@@ -136,11 +138,11 @@ const pdfName = 'LiXin-Resume.pdf';
               </div>
               <p class="period">{job.period}</p>
             </div>
-            {job.overview ? <p class="project-desc">{job.overview}</p> : null}
+            {job.overview ? <p class="project-desc" set:html={linkify(job.overview, links)} /> : null}
             {job.highlights.length > 0 ? (
               <ol class="bullets numbered">
                 {job.highlights.map((line) => (
-                  <li>{line}</li>
+                  <li set:html={linkify(line, links)} />
                 ))}
               </ol>
             ) : null}
@@ -149,7 +151,7 @@ const pdfName = 'LiXin-Resume.pdf';
                 <p class="subhead">业绩</p>
                 <ul class="bullets">
                   {job.achievements.map((line) => (
-                    <li>{line}</li>
+                    <li set:html={linkify(line, links)} />
                   ))}
                 </ul>
               </>
@@ -274,6 +276,8 @@ const pdfName = 'LiXin-Resume.pdf';
         // 等一帧，确保头像替换后布局稳定
         await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
 
+        // html2canvas 会克隆 DOM 并重跑 CSS 动画；
+        // animation-fill-mode:both 会让克隆节点停在 opacity:0 → PDF 空白
         const canvas = await html2canvas(resumeEl, {
           scale: 2,
           useCORS: true,
@@ -281,6 +285,21 @@ const pdfName = 'LiXin-Resume.pdf';
           backgroundColor: '#ffffff',
           logging: false,
           imageTimeout: 5000,
+          onclone(clonedDoc) {
+            const clonedResume = clonedDoc.getElementById('resume');
+            if (clonedResume instanceof HTMLElement) {
+              clonedResume.style.overflow = 'visible';
+              clonedResume.style.animation = 'none';
+              clonedResume.style.opacity = '1';
+              clonedResume.style.transform = 'none';
+            }
+            clonedDoc.querySelectorAll('.section, .hero').forEach((node) => {
+              if (!(node instanceof HTMLElement)) return;
+              node.style.animation = 'none';
+              node.style.opacity = '1';
+              node.style.transform = 'none';
+            });
+          },
         });
 
         if (!canvas.width || !canvas.height) {

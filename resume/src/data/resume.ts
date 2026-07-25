@@ -1,6 +1,10 @@
 /**
  * 简历内容 — 改这里即可更新页面与导出 PDF。
  * 部署后访问：https://resume.lixin.dev
+ *
+ * 超链接两种写法：
+ * 1. keywordLinks：关键词 → 笔记/文档 URL，正文出现即自动可点
+ * 2. 内联 Markdown：[显示名](https://你的笔记地址)
  */
 export const resume = {
   name: '利欣',
@@ -21,6 +25,17 @@ export const resume = {
     { label: '求职意向', value: 'U3D' },
     { label: '期望城市', value: '深圳' },
   ],
+
+  /**
+   * 关键词 → 在线笔记 / 文档（只填 http/https）。
+   * 例：'et 框架': 'https://你的笔记站/et'
+   * 也可在任意正文里写：[ET 框架](https://你的笔记站/et)
+   */
+  keywordLinks: {
+    // 'et 框架': 'https://example.com/notes/et',
+    // Lua: 'https://example.com/notes/lua',
+    // Unity: 'https://example.com/notes/unity',
+  } as Record<string, string>,
 
   strengths: [
     '情绪稳定，态度端正，沟通协作能力好，拥抱变化。',

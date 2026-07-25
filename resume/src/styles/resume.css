@@ -428,6 +428,20 @@ body {
   margin-top: 0.2rem;
 }
 
+.inline-link {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  text-decoration-color: rgba(15, 118, 110, 0.45);
+}
+
+.inline-link:hover {
+  color: #0b5f59;
+  text-decoration-color: currentColor;
+}
+
 .footer-note {
   margin-top: 0.5rem;
   text-align: center;
@@ -500,9 +514,10 @@ body {
     animation: none !important;
   }
 
-  a {
+  a.inline-link {
     color: inherit !important;
     text-decoration: none !important;
+    font-weight: inherit;
   }
 
   .intent li {

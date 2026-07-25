@@ -61,7 +61,9 @@ npm run resume:build
 
 改经历 / 作品 / 技能：编辑 `resume/src/data/resume.ts`。
 
-页面右上角 **导出 PDF**：走浏览器打印，另存为 PDF（已做打印样式，会隐藏按钮）。
+关键词跳转笔记：在 `keywordLinks` 填 `关键词 → URL`，或在正文写 `[显示名](https://...)`。
+
+页面右上角 **导出 PDF**：html2canvas + jsPDF（导出时自动切正式头像）；**打印**走浏览器打印样式。
 
 ### Cloudflare Pages 设置
 
