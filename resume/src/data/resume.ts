@@ -106,8 +106,8 @@ export const resume = {
           period: '2026.3 — 至今',
           overview: '弹幕业务进入线上维护后，同步参与小游戏开发。',
           highlights: [
-            '区分 Unity 6 与国内团结引擎在构建目标、插件与发布合规上的差异。',
-            '推进微信小游戏测试版，目前暂未对外开放渠道。',
+            '',
+            '',
           ],
           achievements: [] as string[],
           diagrams: [] as Array<{ title: string; url?: string; note?: string }>,
@@ -116,7 +116,7 @@ export const resume = {
     },
     {
       company: '深圳顺源网络科技有限公司',
-      role: 'U3D全栈 & CocosCreator客户端',
+      role: 'U3D&CocosCreator',
       period: '2019.03 — 2024.11',
       overview:
         '从外围业务做到核心战斗相关开发，覆盖双端逻辑、热更出包、版本节奏，并参与带教。',
@@ -124,7 +124,7 @@ export const resume = {
       achievements: [] as string[],
       projects: [
         {
-          name: '幻境旅者',
+          name: '幻境旅者 2D塔防+卡牌角色养成',
           overview:
             'Lua 双端业务与核心战斗相关开发；参与玩法 / 技能 / PVP 迭代，并协助客户端任务拆解、版本与资源管理，面试及带教实习与初级同学。',
           highlights: [
@@ -135,9 +135,9 @@ export const resume = {
           ],
           achievements: [
             '2019–2020：外围 UI 模块，逐步接触 SDK、热更与工具链。',
-            '2021 起：进入核心战斗相关实现；下半年起主要负责玩法、角色与 PVP 方向工作。',
+            '2021 起：进入核心战斗相关实现；下半年起主要负责玩法、角色新增与 PVP 方向工作。',
             '2023：项目多渠道上线，转入线上维护与版本迭代。',
-            '2024：并行参与 C# 项目战斗模块，并继续迭代线上版本。',
+            '2024：并行 参与新项目战斗模块转C#，并继续迭代线上版本。',
           ],
           diagrams: [
             {
