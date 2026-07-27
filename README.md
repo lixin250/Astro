@@ -22,6 +22,8 @@
 │   ├── src/pages/
 │   └── package.json
 │
+├── doc/                         # 项目文档（仅 Git，不部署到域名）
+│
 ├── videos/
 │   ├── files/                   # 本地视频（gitignore，不上传 Git）
 │   ├── worker/                  # Worker 代码（Git 部署到 CF）

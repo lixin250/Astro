@@ -1,0 +1,37 @@
+【20250815版本后调整】
+主要是：
+    美术工程，新增很多主工程一致的 程序集及保持对应依赖，调整部分代码存放位置。
+    导入新版本光照方案变更，及Volume体积框架 - 目前主要后处理相关，Timeline部分此版本更新后会再看是否遗漏导入。
+    路径变更，引入程序集，移动规则，先取决于主工程保持一致路径优先，找不到的丢入XNEditor，涉及到面板挂载分出到Mono（xxxManager, xxxSerilaizeData),
+变更路径如下：
+1. Config路径修改 ， 以主工程ThirdParty/LubanLib/Editor/Configs
+2. EditorWindowInit => Scripts/Editor/EditorWindowInit / Scripts/Editor/XNEditor/EditorWindowInit 
+3. EditorWindows => Scripts/Editor/EditorWindows 
+4. Scripts/Editor/XNEditor/ToolKit/Assets/Output => 
+5. Scripts/Framework => Scripts/Loader/HeadMaster/Framework/
+6. Scripts/Loader/HeadMaster/Game/RendererFeature/ 部分 光照 - 模拟光源删除，Sun、VolumeManager调整
+7. Scripts/Misc => Scripts/Editor/XNEditor/ToolKit/Scripts/SchoolView/Misc/
+8. Scripts/SpritePivotVisualizer => 
+9. Scripts/ToolKit => Scripts/Editor/XNEditor/ToolKit || Scripts/Mono/ToolKit/Manager
+10.TextureTool => Scripts/Editor/XNEditor/TextureTool
+11.TileTool => Scripts/Editor/XNEditor/TileTool || Scripts/Mono/TileTool/
+
+增删减部分：
++ 下雨Rain + 涟漪Ripple 
++ Volume体积框架， 右键美术易用增补
++ PointLight 光源调整
++ Mono/Timeline
++ ThirdParty/ETTask 
++ ThirdParty/LubanLib/Editor/Configs
+
+~ Sources/Arts/Map 所有预支 携带老旧废弃代码，已有快捷键，需要删除重新保存一遍。
+
+- Output/Effects/Wind 相关风效无用资源
+- Resources/RendererFeature/Simulatedillumination/ 模拟光照删除调整
+
+
+
+Revision ：  
+8726 - 包导入
+8727 - 资源变动
+8728 - 美术资源剔除 无用代码

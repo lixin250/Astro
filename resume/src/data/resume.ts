@@ -50,28 +50,27 @@ export const resume = {
   skills: [
     'Unity / CocosCreator',
     'C# / Lua',
-    '热更 / 出包 / 编辑器',
-    '渠道 SDK',
-    '0到1项目经验 / 多平台经验',
+    '热更/出包/编辑器/SDK',
+    '0到1项目经验/多平台经验/线上项目迭代维护',
   ],
 
   experience: [
     {
       company: '深圳市玄鸟纪元网络科技有限公司',
-      role: 'U3D',
+      role: 'U3D客户端',
       period: '2024.11 — 至今',
       overview: '',
       highlights: [] as string[],
       achievements: [] as string[],
       projects: [
         {
-          name: '我在武侠世界朝九晚五',
+          name: '2.5D 我在武侠世界朝九晚五',
           period: '2024.11 — 2025.10',
-          overview: 'ET 框架功能开发与工具链；负责打包出包与版本节奏，直至游戏进入审核 / 调包与版号申请阶段。',
+          overview: 'ET 框架下参与城建与部分局外业务、打包出包，并协助美术资源工具链。',
           highlights: [
-            'ET 框架下功能模块全栈开发；补充美术资源工具，资源管理。',
-            '负责打包出包与版本节奏，配合审核与调包流程。',
-            '管线迁移URP,优化游戏城建这块资源',
+            '参与功能模块开发，补充美术侧资源工具（Odin）与日常资源整理。',
+            '负责日常打包出包，配合审核与调包流程。',
+            '参与 Built-in 迁 URP；城建侧 Tilemap 资源转 Mesh + Atlas 合并进场景等导出与合批相关调整（详见下方文档）。',
           ],
           achievements: [] as string[],
           diagrams: [
@@ -79,16 +78,25 @@ export const resume = {
               title: '我在武侠世界朝九晚五 · 产品预约页',
               url: 'https://www.taptap.cn/app/785913?os=android',
             },
+            {
+              title: '场景方案优化记录',
+              url: 'https://github.com/lixin250/Astro/blob/cloudflare/doc/HM/场景方案优化记录.docx',
+            },
+            {
+              title: '主工程 Dll 调整后的美术同步',
+              url: 'https://github.com/lixin250/Astro/blob/cloudflare/doc/HM/20251028主工程Dll调整后的美术同步.docx',
+            },
           ] as Array<{ title: string; url?: string; note?: string }>,
         },
         {
-          name: '视频平台 · 弹幕游戏',
+          name: '2D竞速类弹幕游戏',
           period: '2025.10 — 至今',
-          overview:
-            '朝九晚五进入审核 / 调包阶段后转入；负责弹幕业务从 0-1 落地与多渠道适配。',
+          overview: 'ET 项目审核申版阶段，参与弹幕业务从 0 到 1 落地。',
           highlights: [
-            '负责多数业务逻辑与部分玩法支持；对接多视频平台 SDK（抖音，快手平台规则与能力）。',
-            '线上问题解决，版本功能迭代',
+            '接入 YooAsset 资源管理、HybridCLR 热更；用 tag 驱动 UI 绑定生成，并以 partial 拆开逻辑与生成代码。',
+            '负责业务逻辑与部分玩法支持；对接抖音、快手等渠道 SDK，梳理平台规则与接入方式。',
+            '业务侧使用 HTTP / WebSocket 通讯。',
+            '参与多版本迭代与自动化流水线完善。',
           ],
           achievements: [] as string[],
           diagrams: [] as Array<{ title: string; url?: string; note?: string }>,
@@ -96,10 +104,10 @@ export const resume = {
         {
           name: '微信小游戏',
           period: '2026.3 — 至今',
-          overview: '与弹幕业务同期推进；工程侧区分 Unity 6 与国内团结引擎路径。',
+          overview: '弹幕业务进入线上维护后，同步参与小游戏开发。',
           highlights: [
-            '区分 Unity 6 与国内团结引擎（构建目标、插件生态、发布与合规路径不同）。',
-            '推进微信小游戏测试版，暂未对外开放渠道。',
+            '区分 Unity 6 与国内团结引擎在构建目标、插件与发布合规上的差异。',
+            '推进微信小游戏测试版，目前暂未对外开放渠道。',
           ],
           achievements: [] as string[],
           diagrams: [] as Array<{ title: string; url?: string; note?: string }>,
@@ -108,37 +116,36 @@ export const resume = {
     },
     {
       company: '深圳顺源网络科技有限公司',
-      role: 'U3D',
+      role: 'U3D全栈 & CocosCreator客户端',
       period: '2019.03 — 2024.11',
       overview:
-        '从外围业务成长为核心战斗主责，覆盖双端逻辑、热更出包、版本节奏与带教。',
+        '从外围业务做到核心战斗相关开发，覆盖双端逻辑、热更出包、版本节奏，并参与带教。',
       highlights: [] as string[],
       achievements: [] as string[],
       projects: [
         {
-          name: 'MS · 幻境旅者',
+          name: '幻境旅者',
           overview:
-            'Lua 双端业务与核心战斗；主导玩法 / 技能 / PVP 迭代，兼顾客户端任务拆解、版本与资源管理，面试并带教实习与初级同学。',
+            'Lua 双端业务与核心战斗相关开发；参与玩法 / 技能 / PVP 迭代，并协助客户端任务拆解、版本与资源管理，面试及带教实习与初级同学。',
           highlights: [
-            '负责 2D 重度核心战斗与角色技能体系，持续交付玩法更迭、表现联调与版本合入。',
-            '主导 PVP 维护与问题闭环，保障对战稳定性与发版节奏。',
-            '落地渠道 SDK、热更流程脚本化，以及轻量 Shader / Unity 扩展 / 策划工具，提升联调与出包效率。',
-            '兼任客户端进度与任务拆解，指导多名实习 / 初级程序，统一代码与资源规范。',
+            '负责核心战斗与角色技能相关迭代，配合玩法更迭、表现联调与版本合入。',
+            '维护竞技场等相关玩法，跟进 PVE / PVP 问题与发版节奏。',
+            '按项目需要进行性能排查（Lua、资源、UWA 等）；编写少量 Shader / Unity 扩展与策划工具。',
+            '协助客户端进度与任务拆解，带教实习 / 初级程序，对齐代码与资源习惯。',
           ],
           achievements: [
-            '2019–2020：外围模块与 Lua 业务起步，逐步覆盖 SDK、热更与工具链。',
-            '2021 起：进入核心战斗实现；下半年起独立负责玩法、角色与 PVP。',
+            '2019–2020：外围 UI 模块，逐步接触 SDK、热更与工具链。',
+            '2021 起：进入核心战斗相关实现；下半年起主要负责玩法、角色与 PVP 方向工作。',
             '2023：项目多渠道上线，转入线上维护与版本迭代。',
-            '2024：并行推进 C# 项目战斗模块，并持续迭代线上版本。',
+            '2024：并行参与 C# 项目战斗模块，并继续迭代线上版本。',
           ],
-          /** 外链仅作公开检索，不强调单一渠道 */
           diagrams: [
             {
-              title: 'MGR 架构导图',
+              title: '战斗管理器导图',
               url: 'https://www.processon.com/view/link/5fd6debf63768906e6db2e36',
             },
             {
-              title: 'MS 模块导图',
+              title: '开发部分笔记',
               url: 'https://www.processon.com/view/link/6405e6fc0e3e7447cd1eeb3e',
             },
             {
@@ -156,22 +163,20 @@ export const resume = {
    * 继续往 links 里加 GitHub 仓库即可
    */
   otherSkills: {
-    tags: ['Cocos Creator', 'Python', 'AI 辅助开发', '直播电商工具', '政府类信息化工具'],
+    tags: ['Cocos Creator', '服务器业务逻辑', 'AI辅助开发'],
     notes: [
-      '早期接触 Cocos Creator，参与《像素迷城》上线项目。',
-      '日常使用 Cursor、ChatGPT 等 AI 工具辅助编码、排查与文档整理，提升交付效率。',
-      '具备 Python 脚本能力，可用于数据处理、自动化与小工具开发。',
-      '接触过直播电商相关业务工具，以及政府类信息化 / 办公向工具的对接与使用。',
+      '2019年有Cocos Creator引擎下的《像素迷城》上线项目经验。',
+      'lua项目，ET项目，直播平台弹幕游戏C#，均有服务器业务逻辑迭代需求，有规范流程与接受上上线验证的经验。',
+      '积极使用AI工具参与工作提效，保持新工具模型技术尝试。',
+      '直播电商、运营、政府类信息化、办公向工具的友情产出，为亲友工作减负与提效',
     ],
     links: [
       {
-        title: 'GitHub · lixin250',
-        note: '个人仓库主页',
+        title: 'GitHub ',
         url: 'https://github.com/lixin250',
       },
       {
         title: '像素迷城 · 产品页',
-        note: '早期 Cocos Creator 上线项目（顺源）',
         url: 'https://www.taptap.cn/app/178517/topic',
       },
       // { title: 'GitHub · 仓库名', note: '一句话说明', url: 'https://github.com/lixin250/仓库' },
@@ -180,7 +185,7 @@ export const resume = {
 
   education: [
     {
-      school: '九江学院（公办普通本科）',
+      school: '九江学院',
       degree: '本科 · 数字媒体技术 · 资格证书：NCRE-2、CET-4',
       period: '2015.09 — 2019.06',
     },
