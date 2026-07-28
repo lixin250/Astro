@@ -41,17 +41,17 @@ export const resume = {
   } as Record<string, string>,
 
   strengths: [
-    '情绪稳定，态度端正，沟通协作能力好，拥抱变化。',
-    '有带新、拆解分配任务经验，主动融入项目风格，保持项目代码扩展性、可读性、统一性。',
-    '已婚生活节奏稳定，党员关键时刻抗压。',
+    '做事情绪稳定，沟通配合顺畅，能适应工作需求需要的快速变化响应及探索新内容。',
+    '有带新、拆任务经验，会跟着项目规范写代码，注意可读与可维护。',
+    '生活节奏较稳，关键节点能顶住压力跟进交付。吃过发版加班的早餐，但更希望平衡生活与工作。',
   ],
 
   /** 核心技能（置前加粗展示） */
   skills: [
-    'Unity / CocosCreator',
-    'C# / Lua',
-    '热更/出包/编辑器/SDK',
-    '0到1项目经验/多平台经验/线上项目迭代维护',
+    'Unity/CocosCreator',
+    'C#/Lua',
+    '战斗/SDK/热更/出包/编辑器',
+    '0到1项目/多平台/线上迭代维护',
   ],
 
   experience: [
@@ -91,12 +91,12 @@ export const resume = {
         {
           name: '2D竞速类弹幕游戏',
           period: '2025.10 — 至今',
-          overview: 'ET 项目审核申版阶段，参与弹幕业务从 0 到 1 落地。',
+          overview: 'ET 项目审核申版阶段，参与弹幕业务从0到1落地,持续维护线上版本',
           highlights: [
-            '接入 YooAsset 资源管理、HybridCLR 热更；用 tag 驱动 UI 绑定生成，并以 partial 拆开逻辑与生成代码。',
+            'Unity6下，接入YooAsset资源管理、HybridCLR热更，由tag驱动UIBind',
             '负责业务逻辑与部分玩法支持；对接抖音、快手等渠道 SDK，梳理平台规则与接入方式。',
-            '业务侧使用 HTTP / WebSocket 通讯。',
-            '参与多版本迭代与自动化流水线完善。',
+            '自有业务侧服务器使用 HTTP / WebSocket交互。',
+            '多版本迭代与自动化流水线完善。',
           ],
           achievements: [] as string[],
           diagrams: [] as Array<{ title: string; url?: string; note?: string }>,
@@ -106,8 +106,7 @@ export const resume = {
           period: '2026.3 — 至今',
           overview: '弹幕业务进入线上维护后，同步参与小游戏开发。',
           highlights: [
-            '',
-            '',
+            '团队方向转小精简，自己有空参与UI迭代，了解团结引擎下的小游戏流程',
           ],
           achievements: [] as string[],
           diagrams: [] as Array<{ title: string; url?: string; note?: string }>,
@@ -179,7 +178,6 @@ export const resume = {
         title: '像素迷城 · 产品页',
         url: 'https://www.taptap.cn/app/178517/topic',
       },
-      // { title: 'GitHub · 仓库名', note: '一句话说明', url: 'https://github.com/lixin250/仓库' },
     ] as Array<{ title: string; url: string; note?: string }>,
   },
 

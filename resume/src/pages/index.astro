@@ -18,59 +18,6 @@ const links = resume.keywordLinks;
       <button type="button" class="btn btn-ghost" id="print-resume">
         打印
       </button>
-      <div class="contact-wrap">
-        <button type="button" class="btn btn-ghost" id="contact-toggle" aria-expanded="false" aria-controls="contact-menu">
-          联系我
-        </button>
-        <div class="contact-menu" id="contact-menu" hidden>
-          <button
-            type="button"
-            class="contact-item"
-            data-action="email"
-            data-copy={resume.email}
-            data-copy-label="邮箱"
-          >
-            <span class="contact-label">邮箱</span>
-            <span class="contact-value">{resume.email}</span>
-            <span class="contact-hint">点击复制邮箱（请粘贴到 QQ 邮箱）</span>
-          </button>
-          <button
-            type="button"
-            class="contact-item"
-            data-action="qq"
-            data-copy={resume.qq}
-            data-copy-label="QQ号"
-            data-qq={resume.qq}
-          >
-            <span class="contact-label">QQ</span>
-            <span class="contact-value">{resume.qq}</span>
-            <span class="contact-hint">点击复制 QQ 号，并尝试拉起本机 QQ</span>
-          </button>
-          <button
-            type="button"
-            class="contact-item"
-            data-action="copy"
-            data-copy={resume.wechat}
-            data-copy-label="微信号"
-          >
-            <span class="contact-label">微信</span>
-            <span class="contact-value">{resume.wechat}</span>
-            <span class="contact-hint">点击复制微信号</span>
-          </button>
-          <button
-            type="button"
-            class="contact-item"
-            data-action="copy"
-            data-copy={resume.phone}
-            data-copy-label="电话"
-          >
-            <span class="contact-label">电话</span>
-            <span class="contact-value">{resume.phone}</span>
-            <span class="contact-hint">点击复制手机号</span>
-          </button>
-          <p class="contact-toast" id="contact-toast" hidden></p>
-        </div>
-      </div>
     </div>
 
     <article class="resume" id="resume">
@@ -81,16 +28,45 @@ const links = resume.keywordLinks;
             <p class="basics">{resume.basics.join('  ·  ')}</p>
             <ul class="meta">
               <li>
-                <button type="button" class="meta-copy" data-action="copy" data-copy={resume.phone} data-copy-label="电话">
-                  {resume.phone}
+                <button
+                  type="button"
+                  class="meta-copy"
+                  data-copy={resume.phone}
+                  data-copy-label="电话 / 微信"
+                  title="点击复制"
+                  aria-label={`电话与微信 ${resume.phone}，点击复制`}
+                >
+                  <span class="meta-icons" aria-hidden="true">
+                    <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1.1-.3 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11.4 21 3 12.6 3 2c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.3 1.1L6.6 10.8Z" />
+                    </svg>
+                    <svg class="meta-icon meta-icon-wechat" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9.5 4C5.9 4 3 6.5 3 9.6c0 1.8.9 3.4 2.4 4.5l-.6 2.2 2.4-1.3c.7.2 1.5.3 2.3.3.2 0 .5 0 .7-.1-.1-.4-.2-.9-.2-1.3 0-3.1 2.8-5.6 6.3-5.6.2 0 .4 0 .6 0C16.3 5.7 13.2 4 9.5 4Zm-2.2 3.2c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Zm4.1 0c.5 0 .9.4.9.9s-.4.9-.9.9-.9-.4-.9-.9.4-.9.9-.9Zm9.6 3.2c-2.9 0-5.2 2-5.2 4.5s2.3 4.5 5.2 4.5c.5 0 1.1-.1 1.6-.2l1.8 1-.5-1.7c1.1-.9 1.8-2.1 1.8-3.6 0-2.5-2.3-4.5-5.2-4.5Zm-1.8 3.2c-.3 0-.6-.3-.6-.6s.3-.6.6-.6.6.3.6.6-.3.6-.6.6Zm3.5 0c-.3 0-.6-.3-.6-.6s.3-.6.6-.6.6.3.6.6-.3.6-.6.6Z" />
+                    </svg>
+                  </span>
+                  <span>{resume.phone}</span>
                 </button>
               </li>
               <li>
-                <button type="button" class="meta-copy" data-action="email" data-copy={resume.email} data-copy-label="邮箱">
-                  {resume.email}
+                <button
+                  type="button"
+                  class="meta-copy"
+                  data-copy={resume.email}
+                  data-copy-label="邮箱"
+                  title="点击复制"
+                  aria-label={`邮箱 ${resume.email}，点击复制`}
+                >
+                  <span class="meta-icons" aria-hidden="true">
+                    <svg class="meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="3" y="5" width="18" height="14" rx="2" />
+                      <path d="m3 7 9 7 9-7" />
+                    </svg>
+                  </span>
+                  <span>{resume.email}</span>
                 </button>
               </li>
             </ul>
+            <p class="meta-toast" id="meta-toast" hidden></p>
             <ul class="intent">
               {resume.intent.map((item) => (
                 <li>
@@ -125,7 +101,7 @@ const links = resume.keywordLinks;
       </section>
 
       <section class="section">
-        <h2>个人优势</h2>
+        <h2>自我评价</h2>
         <ul class="bullets strength-list">
           {resume.strengths.map((line) => (
             <li set:html={linkify(line, links)} />
@@ -295,10 +271,42 @@ const links = resume.keywordLinks;
   const exportBtn = document.getElementById('export-pdf');
   const printBtn = document.getElementById('print-resume');
   const resumeEl = document.getElementById('resume');
-  const contactToggle = document.getElementById('contact-toggle');
-  const contactMenu = document.getElementById('contact-menu');
-  const toast = document.getElementById('contact-toast');
   const avatarImg = document.getElementById('resume-avatar');
+  const metaToast = document.getElementById('meta-toast');
+
+  async function copyText(text: string) {
+    if (navigator.clipboard?.writeText) {
+      await navigator.clipboard.writeText(text);
+      return;
+    }
+    const input = document.createElement('textarea');
+    input.value = text;
+    input.setAttribute('readonly', '');
+    input.style.position = 'fixed';
+    input.style.left = '-9999px';
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('copy');
+    document.body.removeChild(input);
+  }
+
+  function showMetaToast(message: string) {
+    if (!(metaToast instanceof HTMLElement)) return;
+    metaToast.hidden = false;
+    metaToast.textContent = message;
+    window.setTimeout(() => {
+      metaToast.hidden = true;
+    }, 1800);
+  }
+
+  document.querySelectorAll<HTMLElement>('.meta-copy[data-copy]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const value = btn.getAttribute('data-copy') || '';
+      const label = btn.getAttribute('data-copy-label') || '内容';
+      if (!value) return;
+      void copyText(value).then(() => showMetaToast(`已复制${label}：${value}`));
+    });
+  });
 
   function setExportBusy(busy: boolean) {
     if (!(exportBtn instanceof HTMLButtonElement)) return;
@@ -562,70 +570,6 @@ const links = resume.keywordLinks;
     }
   }
 
-  async function copyText(text: string) {
-    if (navigator.clipboard?.writeText) {
-      await navigator.clipboard.writeText(text);
-      return;
-    }
-    const input = document.createElement('textarea');
-    input.value = text;
-    input.setAttribute('readonly', '');
-    input.style.position = 'fixed';
-    input.style.left = '-9999px';
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand('copy');
-    document.body.removeChild(input);
-  }
-
-  function showToast(message: string) {
-    if (!(toast instanceof HTMLElement)) return;
-    toast.hidden = false;
-    toast.textContent = message;
-    window.setTimeout(() => {
-      toast.hidden = true;
-    }, 2200);
-  }
-
-  function tryOpenProtocol(url: string) {
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = url;
-    document.body.appendChild(iframe);
-    window.setTimeout(() => iframe.remove(), 1500);
-  }
-
-  async function handleContactAction(el: HTMLElement) {
-    const action = el.getAttribute('data-action') || 'copy';
-    const value = el.getAttribute('data-copy') || '';
-    const label = el.getAttribute('data-copy-label') || '内容';
-    if (!value) return;
-
-    await copyText(value);
-
-    if (action === 'email') {
-      // 系统 mailto 常被绑到网页邮箱，无法指定 QQ 邮箱客户端 → 只复制
-      showToast(`已复制邮箱：${value}，请打开 QQ 邮箱粘贴写信`);
-      return;
-    }
-
-    if (action === 'qq') {
-      const qq = el.getAttribute('data-qq') || value;
-      // 优先复制；再尝试本机协议（多数浏览器会拦截，失败也不影响）
-      tryOpenProtocol(`tencent://message/?uin=${qq}&Site=resume.lixin.dev&Menu=yes`);
-      showToast(`已复制 QQ：${qq}；若本机已装 QQ，请允许打开应用`);
-      return;
-    }
-
-    showToast(`已复制${label}：${value}`);
-  }
-
-  function closeContactMenu() {
-    if (!(contactMenu instanceof HTMLElement) || !(contactToggle instanceof HTMLButtonElement)) return;
-    contactMenu.hidden = true;
-    contactToggle.setAttribute('aria-expanded', 'false');
-  }
-
   exportBtn?.addEventListener('click', () => {
     void downloadPdf();
   });
@@ -634,37 +578,5 @@ const links = resume.keywordLinks;
     void withExportAvatar(async () => {
       window.print();
     });
-  });
-
-  contactToggle?.addEventListener('click', (event) => {
-    event.stopPropagation();
-    if (!(contactMenu instanceof HTMLElement) || !(contactToggle instanceof HTMLButtonElement)) return;
-    const open = contactMenu.hidden;
-    contactMenu.hidden = !open;
-    contactToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
-
-  document.addEventListener('click', (event) => {
-    const target = event.target;
-    if (!(target instanceof Element)) {
-      closeContactMenu();
-      return;
-    }
-
-    const actionEl = target.closest<HTMLElement>('[data-action]');
-    if (actionEl) {
-      event.preventDefault();
-      event.stopPropagation();
-      void handleContactAction(actionEl);
-      return;
-    }
-
-    if (!target.closest('.contact-wrap')) {
-      closeContactMenu();
-    }
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeContactMenu();
   });
 </script>
