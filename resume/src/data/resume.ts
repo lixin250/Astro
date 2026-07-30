@@ -64,7 +64,7 @@ export const resume = {
       achievements: [] as string[],
       projects: [
         {
-          name: '我在武侠世界朝九晚五(2.5D+RPG)',
+          name: '我在武侠世界朝九晚五(2.5D+模拟经营+RPG)',
           period: '2024.11 — 2025.10',
           overview: 'ET 框架下参与城建与部分局外业务、打包出包，并协助美术资源工具链。',
           highlights: [
@@ -140,16 +140,16 @@ export const resume = {
           ],
           diagrams: [
             {
+              title: '幻境旅者 · 产品页',
+              url: 'https://www.taptap.cn/app/715956/topic',
+            },
+            {
               title: '战斗管理器导图',
               url: 'https://www.processon.com/view/link/5fd6debf63768906e6db2e36',
             },
             {
-              title: '开发部分笔记',
+              title: '开发周期相关笔记',
               url: 'https://www.processon.com/view/link/6405e6fc0e3e7447cd1eeb3e',
-            },
-            {
-              title: '幻境旅者 · 产品页',
-              url: 'https://www.taptap.cn/app/715956/topic',
             },
           ] as Array<{ title: string; url?: string; note?: string }>,
         },
@@ -164,7 +164,7 @@ export const resume = {
   otherSkills: {
     tags: ['Cocos Creator', '服务器业务逻辑', 'AI辅助开发'],
     notes: [
-      '有Cocos Creator项目《像素迷城》上线经验, 验证市场挂机+暗黑类玩法。',
+      '有Cocos Creator项目《像素迷城》（ts/js+pomelo）上线经验, 验证市场挂机+暗黑类玩法。',
       'lua项目，ET项目，直播平台弹幕游戏C#，均有服务器业务逻辑迭代需求，有规范流程与接受上上线验证的经验。',
       '积极使用AI工具参与工作提效，保持新工具模型技术尝试。当前cursorPro/minimaxCodingPlan用户',
       '直播电商、运营、政府类信息化、办公向工具的产出，助力亲友工作减负与提效',
