@@ -4,7 +4,7 @@
 
 | 目录 | 用途 | 域名 | 部署方式 |
 |------|------|------|----------|
-| `tools/` | Astro 开发者工具集 | `tools.lixin.dev` | GitHub → Cloudflare Pages |
+| `tools/` | 开发者工具集 | `tools.lixin.dev` | GitHub → Cloudflare Pages |
 | `resume/` | 个人简历（可导出 PDF） | `resume.lixin.dev` | GitHub → Cloudflare Pages |
 | `videos/` | 视频库（R2 + Worker） | `videos.lixin.dev` | GitHub → Cloudflare Worker |
 

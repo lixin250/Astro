@@ -3,14 +3,16 @@
   --ink-soft: #243044;
   --muted: #5b6b7f;
   --line: #d7dee8;
-  --paper: #f3f6fa;
+  --paper: #e8ebf0;
   --surface: #ffffff;
   --accent: #0f766e;
   --accent-soft: #ccfbf1;
-  --shadow: 0 18px 50px rgba(15, 23, 42, 0.08);
+  --shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
   --font-display: 'Syne', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif;
   --font-body: 'DM Sans', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans SC', sans-serif;
-  --resume-width: 820px;
+  /* A4 @ 96dpi ≈ 794×1123；高度随内容增高（可多页） */
+  --a4-width: 210mm;
+  --resume-width: 794px;
 }
 
 * {
@@ -27,16 +29,13 @@ body {
   min-height: 100vh;
   font-family: var(--font-body);
   color: var(--ink);
-  background:
-    radial-gradient(1200px 500px at 10% -10%, rgba(15, 118, 110, 0.12), transparent 55%),
-    radial-gradient(900px 420px at 100% 0%, rgba(36, 48, 68, 0.08), transparent 50%),
-    linear-gradient(180deg, #eef3f8 0%, var(--paper) 40%, #e8eef5 100%);
-  line-height: 1.55;
+  background: var(--paper);
+  line-height: 1.5;
 }
 
 .page {
-  width: min(var(--resume-width), calc(100% - 2rem));
-  margin: 2rem auto 3rem;
+  width: min(var(--resume-width), calc(100% - 1.5rem));
+  margin: 1.25rem auto 2.5rem;
 }
 
 .toolbar {
@@ -45,7 +44,7 @@ body {
   justify-content: flex-end;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.85rem;
 }
 
 .btn {
@@ -86,20 +85,18 @@ body {
 
 .resume {
   background: var(--surface);
-  border: 1px solid rgba(215, 222, 232, 0.9);
+  border: 1px solid #d0d5dd;
   box-shadow: var(--shadow);
-  padding: clamp(1.5rem, 4vw, 2.75rem);
+  /* 接近 A4 页边距：上下左右约 14–16mm */
+  padding: 16mm 15mm;
   position: relative;
   overflow: hidden;
+  min-height: min(297mm, calc(100vh - 5rem));
   animation: rise 0.7s ease both;
 }
 
 .resume::before {
-  content: '';
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 6px;
-  background: linear-gradient(180deg, var(--accent), #164e63);
+  display: none;
 }
 
 @keyframes rise {
@@ -490,7 +487,12 @@ body {
 
 @media (max-width: 640px) {
   .page {
-    margin-top: 1rem;
+    margin-top: 0.75rem;
+  }
+
+  .resume {
+    padding: 1.15rem 1rem;
+    min-height: 0;
   }
 
   .toolbar {
@@ -688,10 +690,13 @@ body {
 
   .page {
     width: 100%;
+    max-width: none;
     margin: 0;
   }
 
   .resume {
+    width: 100%;
+    min-height: 0;
     box-shadow: none;
     border: none;
     padding: 0;
