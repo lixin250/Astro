@@ -91,12 +91,12 @@ export const resume = {
         {
           name: '2D竞速类弹幕游戏',
           period: '2025.10 — 至今',
-          overview: 'ET 项目审核申版阶段，参与弹幕业务从0到1落地,持续维护线上版本',
+          overview: '弹幕业务从0到1落地,持续维护2款游戏的3渠道版本',
           highlights: [
             'Unity6下，接入YooAsset资源管理、HybridCLR热更，由tag驱动UIBind',
-            '负责业务逻辑与部分玩法支持；对接抖音、快手等渠道 SDK，梳理平台规则与接入方式。',
+            '负责业务逻辑与部分玩法支持；按渠道SDK(抖音、快手)接入，梳理平台规则与接入方式。',
             '自有业务侧服务器使用 HTTP / WebSocket交互。',
-            '多版本迭代与自动化流水线完善。',
+            '版本迭代，自动化流水线完善。',
           ],
           achievements: [] as string[],
           diagrams: [] as Array<{ title: string; url?: string; note?: string }>,
@@ -106,7 +106,7 @@ export const resume = {
           period: '2026.3 — 至今',
           overview: '弹幕业务进入线上维护后，同步参与小游戏开发。',
           highlights: [
-            '团队方向转小精简，协助参与公用件、UI小模块迭代; 了解团结引擎下的小游戏流程',
+            '团队引擎下，协助参与公用件、UI小模块迭代; 了解团结引擎下的小游戏流程',
           ],
           achievements: [] as string[],
           diagrams: [] as Array<{ title: string; url?: string; note?: string }>,
@@ -184,7 +184,7 @@ export const resume = {
   education: [
     {
       school: '九江学院',
-      degree: '本科 · 数字媒体技术 · 资格证书：NCRE-2、CET-4',
+      degree: '本科 · 数字媒体技术 · 绩点 3.5+ · NCRE-2、CET-4',
       period: '2015.09 — 2019.06',
     },
   ],
