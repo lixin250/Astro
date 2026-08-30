@@ -96,7 +96,7 @@ export const resume = {
             '弹幕从0-1落地并维护2款上线游戏的多渠道版本；线上维护期同步参与微信小游戏。',
           highlights: [
             'Unity6下（弹幕类），搭建YooAsset资源管理+HybridCLR热更+tag驱动UI绑定与逻辑分离+HTTP/WebSocket通信的基础游戏框架。',
-            '接入抖音/快手SDK，梳理平台规则与能力差异。',
+            '接入抖音/快手SDK，梳理平台规则与能力差异，熟悉后台从提案到上架全流程。',
             '团结引擎下(微信小游戏），协助公用件与 UI 小模块，熟悉小游戏发布流程。',
           ],
           achievements: [] as string[],
