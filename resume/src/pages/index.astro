@@ -5,7 +5,7 @@ import { linkify } from '../lib/linkify';
 import '../styles/resume.css';
 
 const pageTitle = `${resume.name} · ${resume.title}`;
-const pdfName = 'LiXin-Resume.pdf';
+const pdfName = '利欣-unity客户端-7年.pdf';
 const links = resume.keywordLinks;
 const timelineJobs = [...resume.experience].reverse();
 ---
@@ -385,10 +385,8 @@ const timelineJobs = [...resume.experience].reverse();
   async function downloadPdf() {
     if (!(resumeEl instanceof HTMLElement) || !(exportBtn instanceof HTMLButtonElement)) return;
 
-    // 避免中文文件名在部分浏览器/jsPDF 下不触发下载
-    const rawName = exportBtn.getAttribute('data-pdf-name') || 'resume.pdf';
-    const filename = /\.pdf$/i.test(rawName) ? rawName.replace(/[\\/:*?"<>|]+/g, '_') : 'resume.pdf';
-    const safeFilename = /^[\x00-\x7F]+$/.test(filename) ? filename : 'LiXin-Resume.pdf';
+    const rawName = exportBtn.getAttribute('data-pdf-name') || '利欣-unity客户端-7年.pdf';
+    const filename = /\.pdf$/i.test(rawName) ? rawName.replace(/[\\/:*?"<>|]+/g, '_') : '利欣-unity客户端-7年.pdf';
 
     setExportBusy(true);
 
@@ -519,7 +517,6 @@ const timelineJobs = [...resume.experience].reverse();
             throw new Error('页面截图失败');
           }
 
-          const imgData = canvas.toDataURL('image/jpeg', 0.92);
           const pdf = new jsPDF({
             orientation: 'portrait',
             unit: 'mm',
@@ -527,29 +524,48 @@ const timelineJobs = [...resume.experience].reverse();
             compress: true,
           });
 
-          // 整页等比装进一张 A4，避免只按宽度铺满后“超一页”
+          // 按 A4 内容宽铺满，超出高度自动分页裁切
           const pageWidth = pdf.internal.pageSize.getWidth();
           const pageHeight = pdf.internal.pageSize.getHeight();
           const margin = 10;
-          const maxW = pageWidth - margin * 2;
-          const maxH = pageHeight - margin * 2;
-          let drawW = maxW;
-          let drawH = (canvas.height * drawW) / canvas.width;
-          if (drawH > maxH) {
-            drawH = maxH;
-            drawW = (canvas.width * drawH) / canvas.height;
-          }
-          const offsetX = (pageWidth - drawW) / 2;
-          const offsetY = margin;
+          const contentWidth = pageWidth - margin * 2;
+          const contentHeight = pageHeight - margin * 2;
+          const imgHeightMm = (canvas.height * contentWidth) / canvas.width;
+          const pageCount = Math.max(1, Math.ceil(imgHeightMm / contentHeight));
+          const slicePx = Math.floor((contentHeight / imgHeightMm) * canvas.height);
 
-          pdf.addImage(imgData, 'JPEG', offsetX, offsetY, drawW, drawH);
+          for (let i = 0; i < pageCount; i++) {
+            const srcY = i * slicePx;
+            const srcH = Math.min(slicePx, canvas.height - srcY);
+            if (srcH <= 0) break;
+
+            const pageCanvas = document.createElement('canvas');
+            pageCanvas.width = canvas.width;
+            pageCanvas.height = srcH;
+            const ctx = pageCanvas.getContext('2d');
+            if (!ctx) throw new Error('分页画布创建失败');
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, pageCanvas.width, pageCanvas.height);
+            ctx.drawImage(canvas, 0, srcY, canvas.width, srcH, 0, 0, canvas.width, srcH);
+
+            const sliceH = (srcH * contentWidth) / canvas.width;
+            if (i > 0) pdf.addPage();
+            pdf.addImage(
+              pageCanvas.toDataURL('image/jpeg', 0.92),
+              'JPEG',
+              margin,
+              margin,
+              contentWidth,
+              sliceH,
+            );
+          }
 
           const blob = pdf.output('blob');
           if (!(blob instanceof Blob) || blob.size < 100) {
             throw new Error('PDF 生成失败');
           }
 
-          triggerBlobDownload(blob, safeFilename);
+          triggerBlobDownload(blob, filename);
         } finally {
           resumeEl.classList.remove('is-exporting');
         }

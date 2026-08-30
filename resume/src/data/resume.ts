@@ -67,11 +67,13 @@ export const resume = {
         {
           name: '我在武侠世界朝九晚五(2.5D+模拟经营+RPG)',
           period: '2024.11 — 2025.10',
-          overview: 'ET 框架下参与城建与部分局外业务、打包出包，并协助美术资源工具链。',
+          overview:
+            'ET 主工程（HeadMaster / 掌门人）侧重门派城建表现、场景工具链与出包；从资源同步做到合批与 URP 场景方案。',
           highlights: [
-            '参与功能模块开发，补充美术侧资源工具（Odin）与日常美术与主项目工程资源的同步需求。',
-            '负责日常打包出包，配合审核与调包流程。',
-            '参与 Built-in 迁 URP；城建侧 Tilemap 资源转 Mesh + Atlas 合并进场景等导出与合批相关优化',
+            '接手Jenkins日常出包测试，与审核调包与美术沟通同步资源。',
+            '围绕城建模块开发，补充美术侧资源工具（Odin），跨工程的资源/工具等同步及使用问题解决。',
+            '参与管线迁移URP的调整；门派场景从 Tilemap / Sprite 预览改为 Mesh 合批——Ground / Instance 分层 + MaterialPropertyBlock（_Index）驱动合批材质，按节点名同步 SortingLayer。',
+            // '维护 SceneEditor 一键处理（MeshMerge、Preview / Atlas、NavMesh / Zone）；预览图精度不足时改回 Mesh 实模、溶解结束后再切 Preview。局外参与娱乐建筑等 ET 业务（弟子雇佣槽位等）。',
           ],
           achievements: [] as string[],
           diagrams: [
@@ -95,9 +97,9 @@ export const resume = {
           overview:
             '弹幕从0-1落地并维护2款上线游戏的多渠道版本；线上维护期同步参与微信小游戏。',
           highlights: [
-            'Unity6下（弹幕类），搭建YooAsset资源管理+HybridCLR热更+tag驱动UI绑定与逻辑分离+HTTP/WebSocket通信的基础游戏框架。',
-            '接入抖音/快手SDK，梳理平台规则与能力差异，熟悉后台从提案到上架全流程。',
-            '团结引擎下(微信小游戏），协助公用件与 UI 小模块，熟悉小游戏发布流程。',
+            'Unity6下（弹幕类），搭建YooAsset资源管理+HybridCLR热更+UIBind绑定与逻辑分离+HTTP/WebSocket通信的基础游戏框架。',
+            '接入抖音(LiveOpenSDK指令直推)、快手(玩法伴侣IPC + 自研WS)SDK，分渠道打包，熟悉后台从提案到上架全流程。',
+            'TuanJie下(微信小游戏），协助公用件与UI模块开发，熟悉小游戏发布流程。',
           ],
           achievements: [] as string[],
           diagrams: [] as Array<{ title: string; url?: string; note?: string }>,
@@ -156,10 +158,10 @@ export const resume = {
   otherSkills: {
     tags: ['Cocos Creator', '服务器业务逻辑', 'AI辅助开发'],
     notes: [
-      '有Cocos Creator项目《像素迷城》（挂机+暗黑类 ， ts/js+pomelo）上线经验。',
-      'lua项目，ET项目，直播平台弹幕游戏C#，均有服务器业务逻辑迭代需求，有规范流程与接受上上线验证的经验。',
-      '积极使用AI工具参与工作提效，保持新工具模型技术尝试。当前cursorPro/minimaxCodingPlan用户',
-      '直播电商、运营、政府类信息化、办公向工具的产出，助力亲友工作减负与提效',
+      'CCC项目：有Cocos Creator项目《像素迷城》（挂机+暗黑类 ， ts/js+pomelo）上线经验。',
+      '服务器经验：lua项目的线上维护，积累了规范且较丰富的服务器业务逻辑开发，异常数据处理，问题排查经验。',
+      '拥抱AI：积极使用AI工具参与工作提效，cursor+minimax付费用户。有AI参与Unity全流程的demo(Plan-资源-代码-Build-Debug-Apk）',
+      '其他工具：claw类产品部署，直播电商、运营、政企职员的生产力工具的产出',
     ],
     links: [
       {
