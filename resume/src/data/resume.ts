@@ -68,12 +68,12 @@ export const resume = {
           name: '我在武侠世界朝九晚五(2.5D+模拟经营+RPG)',
           period: '2024.11 — 2025.10',
           overview:
-            'ET 主工程（HeadMaster / 掌门人）侧重门派城建表现、场景工具链与出包；从资源同步做到合批与 URP 场景方案。',
+            'ET框架(HybridCLR+YooAsset)下参与城建与局外业务；负责打包出包；接手美术资源块工作，相关工具链(Odin)维护迭代。',
           highlights: [
-            '接手Jenkins日常出包测试，与审核调包与美术沟通同步资源。',
-            '围绕城建模块开发，补充美术侧资源工具（Odin），跨工程的资源/工具等同步及使用问题解决。',
-            '参与管线迁移URP的调整；门派场景从 Tilemap / Sprite 预览改为 Mesh 合批——Ground / Instance 分层 + MaterialPropertyBlock（_Index）驱动合批材质，按节点名同步 SortingLayer。',
-            // '维护 SceneEditor 一键处理（MeshMerge、Preview / Atlas、NavMesh / Zone）；预览图精度不足时改回 Mesh 实模、溶解结束后再切 Preview。局外参与娱乐建筑等 ET 业务（弟子雇佣槽位等）。',
+            '负责日常出包与审核调包；主工程(Git)与美术工程(SVN)资源同步，维护美术侧资源工具',
+            '围绕城建模块开发，如场景地图2转2.5D，Mesh/预览图 随camera距离切换，可交互建筑单位业务逻辑。',
+            '参与管线迁URP调整：如SRPBatcher替代MPB+Texture2DArray场景方案，增补同步Volume后处理体系，小效果',
+            '剧情timeline维护：场景下，镜头、声光电、人物、动作、对话 在轨道结合；及负责资源更新导致轨道绑定断裂的自动回绑',
           ],
           achievements: [] as string[],
           diagrams: [
@@ -111,7 +111,7 @@ export const resume = {
       role: 'U3D & CCC',
       period: '2019.03 — 2024.11',
       overview:
-        '从外围业务做到核心战斗相关开发，覆盖双端逻辑、热更出包、版本节奏，并参与带教。',
+        '从外围业务到核心战斗相关开发，覆盖双端逻辑、热更出包、版本节奏，并参与带教。',
       highlights: [] as string[],
       achievements: [] as string[],
       projects: [
